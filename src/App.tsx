@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,6 +8,9 @@ import { AuthProvider } from "./contexts/AuthContext";
 import RequireAuth from "./components/layout/RequireAuth";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
+
+// Landing Page
+import Index from "./pages/Index";
 
 // Auth Pages
 import Login from "./pages/auth/Login";
@@ -55,13 +59,17 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
+            {/* Landing page now shows Index component instead of redirecting */}
+            <Route path="/" element={
+              <AppLayout>
+                <Index />
+              </AppLayout>
+            } />
+            
             {/* Authentication Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
-
-            {/* Landing page redirects to login */}
-            <Route path="/" element={<Navigate to="/login" replace />} />
             
             {/* User Routes (Protected) */}
             <Route path="/dashboard" element={
