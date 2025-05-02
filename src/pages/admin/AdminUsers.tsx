@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { getUsers } from '@/services/api';
 import { Button } from '@/components/ui/button';
@@ -12,7 +11,7 @@ import {
   DropdownMenuItem, 
   DropdownMenuLabel, 
   DropdownMenuSeparator, 
-  DropdownMenuTrigger
+  DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
 import { 
   Table, 
@@ -214,7 +213,7 @@ const AdminUsers = () => {
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        <Badge variant={user.status === 'active' ? 'success' : 'secondary'}>
+                        <Badge variant={user.status === 'active' ? 'default' : 'secondary'}>
                           {user.status}
                         </Badge>
                       </TableCell>

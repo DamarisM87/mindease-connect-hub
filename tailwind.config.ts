@@ -70,6 +70,11 @@ export default {
 					secondary: '#DFA69E',
 					dark: '#978486',
 					accent: '#BD6466',
+				},
+				// Success color for badges and indicators
+				success: {
+					DEFAULT: '#10b981', // emerald-500
+					foreground: '#ffffff',
 				}
 			},
 			borderRadius: {

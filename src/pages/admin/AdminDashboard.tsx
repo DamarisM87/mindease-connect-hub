@@ -20,7 +20,7 @@ import {
   Cell
 } from 'recharts';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Loader2, Users, Calendar, BookOpen, MessageSquare, Activity } from 'lucide-react';
+import { Loader2, Users, Calendar, BookOpen, MessageSquare, Activity, Flag } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 
