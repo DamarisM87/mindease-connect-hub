@@ -1,13 +1,7 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
-import {
-  User,
-  LogOut,
-  Menu,
-  XIcon
-} from 'lucide-react';
+import { User, LogOut, Menu } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -22,134 +16,103 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const Header = () => {
   const { user, logout, isAdmin } = useAuth();
-  
+
   return (
-    <header className="border-b sticky top-0 z-50 bg-background/95 backdrop-blur">
-      <div className="mindease-container flex items-center justify-between py-4">
-        <div className="flex items-center">
-          <Link to="/" className="flex items-center">
-            <span className="text-2xl font-bold text-mindease-accent">Mind</span>
-            <span className="text-2xl font-bold text-mindease-primary">Ease</span>
-          </Link>
-        </div>
-        
-        <nav className="hidden md:flex items-center gap-6">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100 border-b border-pink-200 shadow-sm backdrop-blur-md">
+      <div className="mindease-container flex items-center justify-between py-4 px-4 md:px-6">
+        {/* Logo */}
+        <Link to="/" className="flex items-center space-x-1">
+          <span className="text-2xl font-extrabold text-mindease-accent drop-shadow-sm">Mind</span>
+          <span className="text-2xl font-extrabold text-mindease-primary drop-shadow-sm">Ease</span>
+        </Link>
+
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-6 text-sm">
           {!user ? (
-            // Navigation links for guests
             <>
-            <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
-              Home
-            </Link> 
-            <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-                About Us
-              </Link>
-              <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
-                Contact
-              </Link>
-              <Link to="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
-                Blog
-              </Link>
+              <Link to="/" className="hover:text-pink-600 transition-colors">Home</Link>
+              <Link to="/about" className="hover:text-purple-600 transition-colors">About</Link>
+              <Link to="/contact" className="hover:text-blue-600 transition-colors">Contact</Link>
+              <Link to="/blog" className="hover:text-pink-500 transition-colors">Blog</Link>
               <Link to="/login">
-                <Button variant="outline">Sign In</Button>
+                <Button variant="outline" className="rounded-full border-pink-300 hover:bg-pink-100 text-pink-700">
+                  Sign In
+                </Button>
               </Link>
               <Link to="/register">
-                <Button>Register</Button>
+                <Button className="rounded-full bg-pink-400 hover:bg-pink-500 text-white">
+                  Register
+                </Button>
               </Link>
             </>
           ) : (
-            // Navigation links for authenticated users
             <>
-             <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
-              Home
-            </Link>
-              <Link to="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
-                Dashboard
-              </Link>
-              <Link to="/mental-tracker" className="text-muted-foreground hover:text-foreground transition-colors">
-                Mood Tracker
-              </Link>
-              <Link to="/appointments" className="text-muted-foreground hover:text-foreground transition-colors">
-                Appointments
-              </Link>
-              <Link to="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
-                Blog
-              </Link>
-              <Link to="/community" className="text-muted-foreground hover:text-foreground transition-colors">
-                Community
-              </Link>
-              
+              <Link to="/" className="hover:text-pink-600 transition-colors">Home</Link>
+              <Link to="/dashboard" className="hover:text-purple-600 transition-colors">Dashboard</Link>
+              <Link to="/mental-tracker" className="hover:text-blue-600 transition-colors">Mood Tracker</Link>
+              <Link to="/appointments" className="hover:text-pink-500 transition-colors">Appointments</Link>
+              <Link to="/blog" className="hover:text-purple-500 transition-colors">Blog</Link>
+              <Link to="/community" className="hover:text-blue-500 transition-colors">Community</Link>
+
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                  <Button variant="ghost" className="rounded-full p-1">
                     <Avatar className="h-8 w-8">
                       <AvatarImage src={user.avatar} alt={user.name} />
                       <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
-                  <DropdownMenuLabel className="font-normal">
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">{user.name}</p>
-                      <p className="text-xs leading-none text-muted-foreground">
-                        {user.email}
-                      </p>
+                <DropdownMenuContent className="w-56 rounded-xl shadow-md" align="end">
+                  <DropdownMenuLabel>
+                    <div className="space-y-1">
+                      <p className="text-sm font-semibold">{user.name}</p>
+                      <p className="text-xs text-muted-foreground">{user.email}</p>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   {isAdmin() && (
                     <DropdownMenuItem asChild>
-                      <Link to="/admin" className="w-full cursor-pointer">Admin Dashboard</Link>
+                      <Link to="/admin">Admin Dashboard</Link>
                     </DropdownMenuItem>
                   )}
                   <DropdownMenuItem asChild>
-                    <Link to="/profile" className="w-full cursor-pointer">Profile</Link>
+                    <Link to="/profile">Profile</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem 
-                    onClick={logout} 
-                    className="cursor-pointer text-destructive focus:text-destructive"
+                  <DropdownMenuItem
+                    onClick={logout}
+                    className="text-destructive hover:bg-red-50"
                   >
                     <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log out</span>
+                    Log out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </>
           )}
         </nav>
-        
-        {/* Mobile menu */}
+
+        {/* Mobile Menu */}
         <Sheet>
           <SheetTrigger asChild className="md:hidden">
             <Button variant="ghost" size="icon">
-              <Menu />
+              <Menu className="text-muted-foreground" />
             </Button>
           </SheetTrigger>
-          <SheetContent className="flex flex-col">
-            <div className="flex justify-between items-center mb-6">
-              <span className="text-lg font-semibold">Menu</span>
-            </div>
+          <SheetContent className="bg-pink-50 p-6">
             <nav className="flex flex-col gap-4">
               {!user ? (
                 <>
-                  <Link to="/about" className="py-2 hover:text-mindease-accent transition-colors">
-                    About Us
+                  <Link to="/about" className="hover:text-pink-500">About Us</Link>
+                  <Link to="/contact" className="hover:text-purple-500">Contact</Link>
+                  <Link to="/blog" className="hover:text-blue-500">Blog</Link>
+                  <Link to="/login">
+                    <Button variant="outline" className="rounded-full w-full mt-2">Sign In</Button>
                   </Link>
-                  <Link to="/contact" className="py-2 hover:text-mindease-accent transition-colors">
-                    Contact
+                  <Link to="/register">
+                    <Button className="rounded-full w-full mt-2 bg-pink-400 hover:bg-pink-500 text-white">Register</Button>
                   </Link>
-                  <Link to="/blog" className="py-2 hover:text-mindease-accent transition-colors">
-                    Blog
-                  </Link>
-                  <div className="flex flex-col gap-2 mt-2">
-                    <Link to="/login">
-                      <Button variant="outline" className="w-full">Sign In</Button>
-                    </Link>
-                    <Link to="/register">
-                      <Button className="w-full">Register</Button>
-                    </Link>
-                  </div>
                 </>
               ) : (
                 <>
@@ -163,36 +126,22 @@ const Header = () => {
                       <p className="text-xs text-muted-foreground">{user.email}</p>
                     </div>
                   </div>
-                  <Link to="/dashboard" className="py-2 hover:text-mindease-accent transition-colors">
-                    Dashboard
-                  </Link>
-                  <Link to="/mental-tracker" className="py-2 hover:text-mindease-accent transition-colors">
-                    Mood Tracker
-                  </Link>
-                  <Link to="/appointments" className="py-2 hover:text-mindease-accent transition-colors">
-                    Appointments
-                  </Link>
-                  <Link to="/blog" className="py-2 hover:text-mindease-accent transition-colors">
-                    Blog
-                  </Link>
-                  <Link to="/community" className="py-2 hover:text-mindease-accent transition-colors">
-                    Community
-                  </Link>
-                  <Link to="/profile" className="py-2 hover:text-mindease-accent transition-colors">
-                    Profile
-                  </Link>
+                  <Link to="/dashboard" className="hover:text-purple-500">Dashboard</Link>
+                  <Link to="/mental-tracker" className="hover:text-blue-500">Mood Tracker</Link>
+                  <Link to="/appointments" className="hover:text-pink-500">Appointments</Link>
+                  <Link to="/blog" className="hover:text-purple-500">Blog</Link>
+                  <Link to="/community" className="hover:text-blue-500">Community</Link>
+                  <Link to="/profile" className="hover:text-pink-500">Profile</Link>
                   {isAdmin() && (
-                    <Link to="/admin" className="py-2 hover:text-mindease-accent transition-colors">
-                      Admin Dashboard
-                    </Link>
+                    <Link to="/admin" className="hover:text-red-500">Admin Dashboard</Link>
                   )}
                   <Button
                     variant="ghost"
                     onClick={logout}
-                    className="flex items-center justify-start px-2 mt-4 text-destructive hover:text-destructive hover:bg-destructive/10"
+                    className="mt-4 text-destructive hover:bg-red-100"
                   >
                     <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log out</span>
+                    Log out
                   </Button>
                 </>
               )}
