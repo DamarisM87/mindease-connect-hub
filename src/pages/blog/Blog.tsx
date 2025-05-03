@@ -10,15 +10,15 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const CATEGORIES = [
-  { name: 'All', value: 'all' },
-  { name: 'Anxiety', value: 'anxiety' },
-  { name: 'Depression', value: 'depression' },
-  { name: 'Mindfulness', value: 'mindfulness' },
-  { name: 'Self-Care', value: 'self-care' },
-  { name: 'Relationships', value: 'relationships' }
+  { name: 'All', value: 'all', icon: '🌈' },
+  { name: 'Anxiety', value: 'anxiety', icon: '💧' },
+  { name: 'Depression', value: 'depression', icon: '🌧️' },
+  { name: 'Mindfulness', value: 'mindfulness', icon: '🌸' },
+  { name: 'Self-Care', value: 'self-care', icon: '💖' },
+  { name: 'Relationships', value: 'relationships', icon: '💌' }
 ];
 
 const Blog = () => {
@@ -33,8 +33,8 @@ const Blog = () => {
       try {
         setLoading(true);
         const fetchedPosts = await getBlogPosts(12);
-        setPosts(fetchedPosts);
         const fetchedUsers = await getUsers(10);
+        setPosts(fetchedPosts);
         setAuthors(fetchedUsers);
       } catch (error) {
         console.error('Error fetching blog data:', error);
@@ -42,7 +42,6 @@ const Blog = () => {
         setLoading(false);
       }
     };
-
     fetchBlogData();
   }, []);
 
@@ -56,7 +55,6 @@ const Blog = () => {
     const readingTime = Math.max(1, Math.ceil(wordCount / 200));
     const randomDate = new Date();
     randomDate.setDate(randomDate.getDate() - Math.floor(Math.random() * 30));
-
     return {
       ...post,
       category: randomCategory,
@@ -67,10 +65,8 @@ const Blog = () => {
   });
 
   const filteredPosts = enhancedPosts.filter(post => {
-    const matchesSearch =
-      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.body.toLowerCase().includes(searchQuery.toLowerCase());
-
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          post.body.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = activeCategory === 'all' || post.category === activeCategory;
     return matchesSearch && matchesCategory;
   });
@@ -84,16 +80,20 @@ const Blog = () => {
   };
 
   return (
-    <div className="min-h-screen pt-6 pb-16 bg-[hsl(210,100%,97%)] animate-fade-in transition-all duration-300">
-      <div className="mindease-container">
-        <div className="mb-8">
-          <h1 className="page-heading text-pink-500">Blog & Resources</h1>
-          <p className="text-muted-foreground">
+    <div className="min-h-screen pt-6 pb-20 bg-[hsl(210,100%,97%)] relative overflow-hidden">
+      {/* Floating kawaii clouds */}
+      <div className="absolute top-0 left-1/4 w-32 h-32 bg-white rounded-full opacity-20 animate-soft-float blur-3xl"></div>
+      <div className="absolute top-20 right-1/4 w-40 h-40 bg-white rounded-full opacity-30 animate-soft-float blur-2xl delay-1000"></div>
+
+      <div className="mindease-container relative z-10">
+        <div className="mb-8 text-center">
+          <h1 className="page-heading text-pink-500 animate-fade-in">Blog & Resources</h1>
+          <p className="text-muted-foreground text-lg">
             Expert insights, tips, and articles about mental health and wellness.
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-4 mb-8">
+        <div className="flex flex-col md:flex-row gap-4 mb-8 items-center justify-between">
           <div className="relative w-full md:max-w-md">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
@@ -104,17 +104,15 @@ const Blog = () => {
             />
           </div>
 
-          <div className="w-full md:w-auto overflow-x-auto">
-            <Tabs value={activeCategory} onValueChange={setActiveCategory} className="w-full">
-              <TabsList className="w-max rounded-full bg-pink-100/60 shadow-sm">
-                {CATEGORIES.map((category) => (
-                  <TabsTrigger key={category.value} value={category.value} className="data-[state=active]:bg-pink-300/60">
-                    {category.name}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
-          </div>
+          <Tabs value={activeCategory} onValueChange={setActiveCategory}>
+            <TabsList className="w-max rounded-full bg-pink-100/60 shadow-sm px-2">
+              {CATEGORIES.map(category => (
+                <TabsTrigger key={category.value} value={category.value} className="data-[state=active]:bg-pink-300/60 rounded-full px-4 py-1">
+                  {category.icon} {category.name}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
         </div>
 
         {loading ? (
@@ -124,26 +122,13 @@ const Blog = () => {
         ) : filteredPosts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPosts.map((post) => (
-              <Card key={post.id} className="overflow-hidden flex flex-col animate-soft-float bg-white/80 backdrop-blur border border-pink-100">
-                <div className="h-48 bg-gradient-to-r from-pink-100 via-pink-200 to-pink-100 flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-12 w-12 text-pink-400 animate-wiggle"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                    />
-                  </svg>
+              <Card key={post.id} className="overflow-hidden flex flex-col animate-soft-float bg-white/80 backdrop-blur-md border border-pink-100 shadow-md rounded-xl hover:shadow-lg transition-all">
+                <div className="h-48 flex items-center justify-center text-5xl">
+                  {CATEGORIES.find(cat => cat.value === post.category)?.icon || '📝'}
                 </div>
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
-                    <Badge variant="outline" className="bg-pink-100 text-pink-600">
+                    <Badge variant="outline" className="bg-pink-100 text-pink-600 rounded-full">
                       {CATEGORIES.find(cat => cat.value === post.category)?.name || 'General'}
                     </Badge>
                     <span className="text-xs text-muted-foreground">{post.readingTime} min read</span>
@@ -157,16 +142,15 @@ const Blog = () => {
                     {post.body}
                   </CardDescription>
                 </CardHeader>
+                <CardContent className="flex-grow pb-0" />
                 <CardFooter className="flex items-center justify-between pt-4 border-t border-pink-100">
                   <div className="flex items-center space-x-2">
                     <Avatar className="h-8 w-8">
                       <AvatarImage src={post.author.avatar} alt={post.author.name} />
-                      <AvatarFallback>
-                        {post.author.name.charAt(0)}
-                      </AvatarFallback>
+                      <AvatarFallback>{post.author.name.charAt(0)}</AvatarFallback>
                     </Avatar>
-                    <div className="text-sm">
-                      <p className="font-medium text-gray-800">{post.author.name}</p>
+                    <div className="text-sm text-gray-800">
+                      <p className="font-medium">{post.author.name}</p>
                     </div>
                   </div>
                   <div className="text-xs text-muted-foreground">{formatDate(post.date)}</div>
