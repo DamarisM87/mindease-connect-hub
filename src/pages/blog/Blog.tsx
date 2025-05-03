@@ -80,7 +80,7 @@ const Blog = () => {
   };
 
   return (
-    <div className="min-h-screen pt-6 pb-20 bg-[hsl(210,100%,97%)] relative overflow-hidden">
+    <div className="min-h-screen pt-6 pb-20 bg-gradient-to-b from-pink-100 via-purple-100 to-blue-100 relative overflow-hidden">
       {/* Floating kawaii clouds */}
       <div className="absolute top-0 left-1/4 w-32 h-32 bg-white rounded-full opacity-20 animate-soft-float blur-3xl"></div>
       <div className="absolute top-20 right-1/4 w-40 h-40 bg-white rounded-full opacity-30 animate-soft-float blur-2xl delay-1000"></div>
