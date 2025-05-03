@@ -37,7 +37,10 @@ const Header = () => {
           {!user ? (
             // Navigation links for guests
             <>
-              <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
+              Home
+            </Link> 
+            <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
                 About Us
               </Link>
               <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -56,6 +59,9 @@ const Header = () => {
           ) : (
             // Navigation links for authenticated users
             <>
+             <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
+              Home
+            </Link>
               <Link to="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
                 Dashboard
               </Link>
