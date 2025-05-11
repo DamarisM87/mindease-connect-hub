@@ -13,12 +13,12 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const CATEGORIES = [
-  { name: 'All', value: 'all', icon: '🌈' },
-  { name: 'Anxiety', value: 'anxiety', icon: '💧' },
-  { name: 'Depression', value: 'depression', icon: '🌧️' },
-  { name: 'Mindfulness', value: 'mindfulness', icon: '🌸' },
-  { name: 'Self-Care', value: 'self-care', icon: '💖' },
-  { name: 'Relationships', value: 'relationships', icon: '💌' }
+  { name: 'All', value: 'all', icon: '🌀' }, // Represents a broad or unified scope
+  { name: 'Anxiety', value: 'anxiety', icon: '😰' }, // Face with anxiety
+  { name: 'Depression', value: 'depression', icon: '🌫️' }, // Fog to symbolize emotional cloudiness
+  { name: 'Mindfulness', value: 'mindfulness', icon: '🧘' }, // Person meditating
+  { name: 'Self-Care', value: 'self-care', icon: '🛁' }, // Bath for relaxing self-care
+  { name: 'Relationships', value: 'relationships', icon: '👫' } // Two people together
 ];
 
 const Blog = () => {

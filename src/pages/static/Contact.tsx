@@ -151,32 +151,27 @@ const Contact = () => {
                 <CardTitle className="font-cute text-mindease-accent">📞 Contact Info</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4 text-sm">
-                {[
-                  {
-                    icon: <Mail className="h-5 w-5" />,
-                    label: "Email",
-                    value: "support@mindease.example",
-                    href: "mailto:support@mindease.example",
-                  },
-                  {
-                    icon: <Phone className="h-5 w-5" />,
-                    label: "Phone",
-                    value: "+1 (555) 123-4567",
-                    href: "tel:+15551234567",
-                  },
-                  {
-                    icon: <MapPin className="h-5 w-5" />,
-                    label: "Address",
-                    value: `123 Wellness Street\nNew York, NY 10001\nUSA`,
-                    href: null,
-                  },
-                  {
-                    icon: <Clock className="h-5 w-5" />,
-                    label: "Hours",
-                    value: `Mon–Fri: 9am–5pm\nSat: 10am–2pm\nSun: Closed`,
-                    href: null,
-                  },
-                ].map((info, idx) => (
+                {[{
+                  icon: <Mail className="h-5 w-5" />,
+                  label: "Email",
+                  value: "Miralfarghaly@gmail.com",
+                  href: "mailto:miralfarghaly@gmail.com",
+                }, {
+                  icon: <Phone className="h-5 w-5" />,
+                  label: "Phone",
+                  value: "+20 01115109500",
+                  href: "tel:+200111510",
+                }, {
+                  icon: <MapPin className="h-5 w-5" />,
+                  label: "Address",
+                  value: `431 El Horreya Rd, Roushdy, 21311`,
+                  href: null,
+                }, {
+                  icon: <Clock className="h-5 w-5" />,
+                  label: "Hours",
+                  value: `Mon–Fri: 9am–5pm\nSat: 10am–2pm\nSun: Closed`,
+                  href: null,
+                }].map((info, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <div className="bg-mindease-primary/20 p-2 rounded-full text-mindease-primary mt-1">
                       {info.icon}
@@ -202,10 +197,29 @@ const Contact = () => {
                 <p className="text-sm text-muted-foreground mb-3">
                   Please reach out to a professional right away. Your well-being is important!
                 </p>
-                <p className="text-lg font-bold text-red-600">1-800-273-8255</p>
+                <p className="text-lg font-bold text-red-600">01115109500</p>
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* Embed the map directly above the footer */}
+        <div className="space-y-6 mt-10">
+          <Card className="bg-white/60 backdrop-blur rounded-2xl shadow-md">
+            <CardHeader>
+              <CardTitle className="font-cute text-mindease-accent">📍 Location</CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3411.7769743560243!2d29.953209025316617!3d31.226907761583934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f5c4eb818bb859%3A0xe4b28ff2fa922b23!2sSkills%20Dynamix!5e0!3m2!1sar!2seg!4v1745428493767!5m2!1sar!2seg"
+                width="100%"
+                height="300"
+                style={{ border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

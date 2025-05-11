@@ -64,9 +64,9 @@ const Footer = () => {
           <div>
             <h3 className="text-md font-semibold text-[#BD6466] mb-4">Contact</h3>
             <ul className="space-y-2 text-sm text-[#978486]">
-              <li>support@mindease.example</li>
-              <li>+1 (555) 123-4567</li>
-              <li>123 Wellness St, NY, USA</li>
+              <li>support@mindease.com</li>
+              <li>+20 01114009887</li>
+              <li>431 El Horreya Rd, Roushdy, Alex</li>
             </ul>
           </div>
         </div>
