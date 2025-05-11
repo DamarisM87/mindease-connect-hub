@@ -29,26 +29,26 @@ const About = () => {
       name: "Sherouk Hatem",
       role: "Chief Technology Officer",
       bio: "Sherouk leads our digital transformation with expertise in health tech solutions. She ensures our platform combines cutting-edge technology with compassionate care.",
-      avatar: "/assets/sherouk-avatar.jpg"
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sherouk"
     },
     {
       name: "Lydia Refaat",
       role: "Founder & Clinical Director",
       bio: "With over 15 years in clinical psychology, Lydia specializes in trauma-informed care and innovative therapeutic approaches. She holds a PhD in Clinical Psychology from Cairo University.",
-      avatar: "/assets/lydia-avatar.jpg"
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lydia"
     },
     
     {
       name: "Miral Farghaly",
       role: "Lead Therapist",
       bio: "Miral brings expertise in cognitive behavioral therapy and mindfulness techniques. She's passionate about making mental health support accessible to all.",
-      avatar: "/assets/miral-avatar.jpg"
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=miral"
     },
     {
       name: "Ganna Mokhtar",
       role: "Community Relations Manager",
       bio: "Ganna builds bridges between MindEase and the communities we serve, ensuring culturally sensitive care and outreach programs.",
-      avatar: "/assets/ganna-avatar.jpg"
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=ganna"
     }
   ];
 
