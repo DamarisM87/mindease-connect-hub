@@ -25,8 +25,19 @@ import {
 import { Loader2, MoreHorizontal, Search, UserPlus, Users } from 'lucide-react';
 import { toast } from '@/components/ui/sonner';
 
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  role: 'admin' | 'user';
+  status: 'active' | 'inactive';
+  lastActive: Date;
+  registeredDate: Date;
+};
+
 const AdminUsers = () => {
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   
@@ -37,10 +48,13 @@ const AdminUsers = () => {
         const fetchedUsers = await getUsers(30);
         
         // Enhance with additional mock data
-        const enhancedUsers = fetchedUsers.map((user: any) => ({
-          ...user,
-          role: Math.random() > 0.8 ? 'admin' : 'user',
-          status: Math.random() > 0.2 ? 'active' : 'inactive',
+        const enhancedUsers = fetchedUsers.map((user) => ({
+          id: user.id.toString(),
+          name: user.name,
+          email: user.email,
+          avatar: user.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(user.name)}`,
+          role: (Math.random() > 0.8 ? 'admin' : 'user') as 'admin' | 'user',
+          status: (Math.random() > 0.2 ? 'active' : 'inactive') as 'active' | 'inactive',
           lastActive: new Date(Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000)),
           registeredDate: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000))
         }));
