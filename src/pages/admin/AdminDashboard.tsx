@@ -25,7 +25,29 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 
 const AdminDashboard = () => {
-  const [analytics, setAnalytics] = useState<any | null>(null);
+  interface AnalyticsData {
+    userCount: number;
+    activeUsers: number;
+    blogPosts: number;
+    communityPosts: number;
+    userGrowth: { month: string; users: number }[];
+    moodDistribution: {
+      name: string;
+      excellent: number;
+      good: number;
+      neutral: number;
+      poor: number;
+      bad: number;
+    }[];
+    appointments: {
+      completed: number;
+      upcoming: number;
+      cancelled: number;
+      total: number;
+    };
+  }
+  
+    const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
