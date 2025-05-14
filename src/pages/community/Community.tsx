@@ -12,9 +12,30 @@ import { ThumbsUp, MessageCircle, Flag, Loader2, Heart, Send } from 'lucide-reac
 import { formatDistanceToNow } from 'date-fns';
 import { toast } from '@/components/ui/sonner';
 
+type CommunityPost = {
+  id: string;
+  title: string;
+  body: string;
+  userId?: string;
+  author: {
+    name: string;
+    email?: string;
+    avatar?: string;
+  };
+  comments: {
+    id: string;
+    name: string;
+    email?: string;
+    body: string;
+    avatar?: string;
+  }[];
+  likes: number;
+  date: string;
+};
+
 const Community = () => {
   const { user } = useAuth();
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<CommunityPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('all');
   const [newPostContent, setNewPostContent] = useState('');
@@ -287,7 +308,7 @@ const Community = () => {
                           {/* Comments section */}
                           {post.comments.length > 0 && (
                             <div className="w-full space-y-3 pt-3 border-t mb-4">
-                              {post.comments.slice(0, 3).map((comment: any, index: number) => (
+                              {post.comments.slice(0, 3).map((comment: CommunityPost['comments'][number], index: number) => (
                                 <div key={index} className="flex gap-3">
                                   <Avatar className="h-8 w-8">
                                     <AvatarImage 
@@ -425,7 +446,7 @@ const Community = () => {
                           {/* Comments section - same as All Posts tab */}
                           {post.comments.length > 0 && (
                             <div className="w-full space-y-3 pt-3 border-t mb-4">
-                              {post.comments.slice(0, 3).map((comment: any, index: number) => (
+                              {post.comments.slice(0, 3).map((comment: CommunityPost['comments'][number], index: number) => (
                                 <div key={index} className="flex gap-3">
                                   <Avatar className="h-8 w-8">
                                     <AvatarImage 

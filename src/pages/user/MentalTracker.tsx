@@ -44,7 +44,16 @@ const MentalTracker = () => {
   const [sleep, setSleep] = useState(3);
   const [notes, setNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [entries, setEntries] = useState<any[]>([]);
+  interface MoodEntry {
+    date: string;
+    mood: number;
+    anxiety: number;
+    sleep: number;
+    notes?: string;
+    timestamp?: string;
+  }
+  
+  const [entries, setEntries] = useState<MoodEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('entry');
 
@@ -74,9 +83,9 @@ const MentalTracker = () => {
     
     const entry = {
       date: format(date, 'yyyy-MM-dd'),
-      mood,
-      anxiety,
-      sleep,
+      mood: mood.toString(),
+      anxiety: anxiety.toString(),
+      sleep: sleep.toString(),
       notes
     };
     

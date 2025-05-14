@@ -16,12 +16,38 @@ const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
   const { user } = useAuth();
   
-  const [post, setPost] = useState<any | null>(null);
-  const [comments, setComments] = useState<any[]>([]);
+  type BlogPostType = {
+    id: string | number;
+    title: string;
+    body: string;
+    category: string;
+    date: Date;
+    readingTime: number;
+    author?: {
+      name?: string;
+      avatar?: string;
+    };
+  };
+  
+    const [post, setPost] = useState<BlogPostType | null>(null);
+  type CommentType = {
+    name: string;
+    email?: string;
+    body: string;
+    avatar?: string;
+    // Add other fields as needed
+  };
+  const [comments, setComments] = useState<CommentType[]>([]);
   const [loading, setLoading] = useState(true);
   const [commentText, setCommentText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [relatedPosts, setRelatedPosts] = useState<any[]>([]);
+  type RelatedPostType = {
+    id: number;
+    title: string;
+    category: string;
+    date: Date;
+  };
+  const [relatedPosts, setRelatedPosts] = useState<RelatedPostType[]>([]);
 
   useEffect(() => {
     const fetchPostData = async () => {

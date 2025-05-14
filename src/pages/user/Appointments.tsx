@@ -29,12 +29,27 @@ const Appointments = () => {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('upcoming');
   const [isLoading, setIsLoading] = useState(true);
-  const [therapists, setTherapists] = useState<any[]>([]);
-  const [appointments, setAppointments] = useState<any[]>([]);
+  interface Therapist {
+    id: number;
+    name: string;
+    avatar: string;
+    specialty: string;
+    // Add other relevant fields if needed
+  }
+  const [therapists, setTherapists] = useState<Therapist[]>([]);
+  interface Appointment {
+    id: number;
+    therapistName: string;
+    date: string;
+    time: string;
+    status: string;
+    // Add other relevant fields if needed
+  }
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
   
   // Booking states
   const [selectedTherapistId, setSelectedTherapistId] = useState<number | null>(null);
-  const [selectedTherapist, setSelectedTherapist] = useState<any>(null);
+  const [selectedTherapist, setSelectedTherapist] = useState<Therapist | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [availableSlots, setAvailableSlots] = useState<string[]>([]);
   const [selectedTime, setSelectedTime] = useState<string>('');

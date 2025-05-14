@@ -21,9 +21,22 @@ const CATEGORIES = [
   { name: 'Relationships', value: 'relationships', icon: '👫' } // Two people together
 ];
 
+interface BlogPost {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
+
+interface Author {
+  id: number;
+  name: string;
+  avatar: string;
+}
+
 const Blog = () => {
-  const [posts, setPosts] = useState<any[]>([]);
-  const [authors, setAuthors] = useState<any[]>([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [authors, setAuthors] = useState<Author[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
