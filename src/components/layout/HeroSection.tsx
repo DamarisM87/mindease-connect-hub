@@ -23,7 +23,7 @@ const slides = [
 
 const HeroSection = () => {
   return (
-    <section className="bg-gradient-to-br from-pink-100 via-indigo-100 to-blue-100 py-16 sm:py-20">
+    <section className="bg-gradient-to-br from-pink-100 via-indigo-100 to-blue-100 py-16 sm:py-20 overflow-hidden max-w-full">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center px-4 sm:px-6 space-y-10 md:space-y-0 md:space-x-10">
         {/* Text Section */}
         <div className="md:w-1/2 space-y-6 text-center md:text-left">
@@ -35,7 +35,10 @@ const HeroSection = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <Link to="/register">
-              <Button size="lg" className="bg-pink-200 text-mindease-primary hover:bg-pink-300 rounded-full shadow-md">
+              <Button
+                size="lg"
+                className="bg-pink-200 text-mindease-primary hover:bg-pink-300 rounded-full shadow-md"
+              >
                 Get Started 💖
               </Button>
             </Link>
@@ -53,24 +56,26 @@ const HeroSection = () => {
         </div>
 
         {/* Swiper Image Section */}
-        <div className="md:w-1/2 w-full flex justify-center">
-          <Swiper
-            modules={[EffectFade, Autoplay]}
-            effect="fade"
-            autoplay={{ delay: 4000 }}
-            loop
-            className="rounded-xl"
-          >
-            {slides.map((slide, i) => (
-              <SwiperSlide key={i}>
-                <img
-                  src={slide.src}
-                  alt={slide.alt}
-                  className="w-full h-64 sm:h-72 md:h-80 object-cover rounded-xl"
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+        <div className="md:w-1/2 w-full flex justify-center overflow-hidden max-w-full">
+          <div className="w-full max-w-sm sm:max-w-md md:max-w-full">
+            <Swiper
+              modules={[EffectFade, Autoplay]}
+              effect="fade"
+              autoplay={{ delay: 4000 }}
+              loop
+              className="rounded-xl"
+            >
+              {slides.map((slide, i) => (
+                <SwiperSlide key={i}>
+                  <img
+                    src={slide.src}
+                    alt={slide.alt}
+                    className="w-full h-64 sm:h-72 md:h-80 object-cover rounded-xl"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
       </div>
     </section>
