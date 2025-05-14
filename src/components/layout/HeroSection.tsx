@@ -23,14 +23,14 @@ const slides = [
 
 const HeroSection = () => {
   return (
-    <section className="bg-gradient-to-br from-pink-100 via-indigo-100 to-blue-100 py-20">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center px-6 space-y-10 md:space-y-0 md:space-x-10">
+    <section className="bg-gradient-to-br from-pink-100 via-indigo-100 to-blue-100 py-16 sm:py-20">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center px-4 sm:px-6 space-y-10 md:space-y-0 md:space-x-10">
         {/* Text Section */}
         <div className="md:w-1/2 space-y-6 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-bold text-mindease-primary drop-shadow-md">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-mindease-primary drop-shadow-md">
             🌸 Begin Your Journey to Mental Wellness 🌈
           </h1>
-          <p className="text-lg md:text-xl text-mindease-muted/80">
+          <p className="text-base sm:text-lg md:text-xl text-mindease-muted/80">
             Track your mood, talk to therapists, and explore your feelings gently—one soft step at a time.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
@@ -53,7 +53,7 @@ const HeroSection = () => {
         </div>
 
         {/* Swiper Image Section */}
-        <div className="md:w-1/2 w-full rounded-xl shadow-lg overflow-hidden">
+        <div className="md:w-1/2 w-full flex justify-center">
           <Swiper
             modules={[EffectFade, Autoplay]}
             effect="fade"
@@ -66,7 +66,7 @@ const HeroSection = () => {
                 <img
                   src={slide.src}
                   alt={slide.alt}
-                  className="w-full h-80 object-cover rounded-xl"
+                  className="w-full h-64 sm:h-72 md:h-80 object-cover rounded-xl"
                 />
               </SwiperSlide>
             ))}
