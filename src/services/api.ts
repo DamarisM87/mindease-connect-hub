@@ -32,12 +32,37 @@ export const getBlogPostById = async (id: string) => {
   }
 };
 
+// Define a User interface based on JSONPlaceholder user structure
+interface User {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+    geo: {
+      lat: string;
+      lng: string;
+    };
+  };
+  phone: string;
+  website: string;
+  company: {
+    name: string;
+    catchPhrase: string;
+    bs: string;
+  };
+}
+
 // Get users from JSONPlaceholder
 export const getUsers = async (limit = 10) => {
   try {
-    const response = await api.get(`/users?_limit=${limit}`);
+    const response = await api.get<User[]>(`/users?_limit=${limit}`);
     // Add avatar URLs to users
-    const usersWithAvatars = response.data.map((user: any) => ({
+    const usersWithAvatars = response.data.map((user: User) => ({
       ...user,
       avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`
     }));
@@ -166,7 +191,20 @@ export const getUserAppointments = async (userId: string) => {
 };
 
 // Save user appointment to localStorage
-export const saveUserAppointment = async (userId: string, appointment: any) => {
+// Define an interface for Appointment
+export interface Appointment {
+  id: string;
+  therapistId: number;
+  therapistName?: string;
+  userId: string;
+  userName?: string;
+  date: string;
+  time: string;
+  notes: string;
+  status: string;
+}
+
+export const saveUserAppointment = async (userId: string, appointment: Appointment) => {
   // Get existing appointments
   const appointments = await getUserAppointments(userId);
   
@@ -225,7 +263,14 @@ export const getAllAppointments = async () => {
 };
 
 // Mental Health Tracking APIs
-export const saveMoodEntry = async (userId: string, entry: any) => {
+// Define an interface for MoodEntry
+export interface MoodEntry {
+  mood: string;
+  note?: string;
+  // Add more specific properties here if needed
+}
+
+export const saveMoodEntry = async (userId: string, entry: MoodEntry) => {
   // Get existing entries
   const entries = await getMoodEntries(userId);
   
@@ -254,27 +299,35 @@ export const getCommunityPosts = async (limit = 10) => {
     const response = await api.get(`/posts?_limit=${limit}`);
     
     // Enhance the posts with additional mock data
-    const enhancedPosts = await Promise.all(response.data.map(async (post: any) => {
-      // Get user data for author
-      const user = await api.get(`/users/${post.userId}`);
-      
-      // Get comments
-      const comments = await api.get(`/posts/${post.id}/comments?_limit=2`);
-      
-      // Add random likes count
-      const likes = Math.floor(Math.random() * 50);
-      
-      return {
-        ...post,
-        author: {
-          ...user.data,
-          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.data.name}`
-        },
-        comments: comments.data,
-        likes,
-        date: new Date(Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000)).toISOString()
-      };
-    }));
+    // Define a Post interface based on JSONPlaceholder structure
+    interface Post {
+      userId: number;
+      id: number;
+      title: string;
+      body: string;
+    }
+    
+        const enhancedPosts = await Promise.all(response.data.map(async (post: Post) => {
+          // Get user data for author
+          const user = await api.get(`/users/${post.userId}`);
+          
+          // Get comments
+          const comments = await api.get(`/posts/${post.id}/comments?_limit=2`);
+          
+          // Add random likes count
+          const likes = Math.floor(Math.random() * 50);
+          
+          return {
+            ...post,
+            author: {
+              ...user.data,
+              avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.data.name}`
+            },
+            comments: comments.data,
+            likes,
+            date: new Date(Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000)).toISOString()
+          };
+        }));
     
     return enhancedPosts;
   } catch (error) {
