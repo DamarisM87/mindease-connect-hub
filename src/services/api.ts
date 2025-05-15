@@ -9,11 +9,97 @@ const api = axios.create({
   },
 });
 
+
+
+const mentalHealthThemes = [
+  {
+    title: "Coping with Anxiety in Daily Life",
+    body: "Discover gentle ways to manage anxiety, including breathing techniques, journaling prompts, and grounding exercises that help bring calm to your day."
+  },
+  {
+    title: "The Power of Positive Affirmations",
+    body: "Learn how to use positive self-talk and affirmations to improve your mood, build self-esteem, and navigate difficult emotions with compassion."
+  },
+  {
+    title: "Creating a Self-Care Routine That Sticks",
+    body: "Explore how to build a consistent and nurturing self-care practice using mindfulness, creativity, and soft boundaries for emotional well-being."
+  },
+  {
+    title: "Understanding Emotional Burnout",
+    body: "Burnout is more than being tired. Learn the signs, causes, and healing practices to gently recover and restore emotional balance."
+  },
+  {
+    title: "Mindful Journaling for Mental Clarity",
+    body: "Discover how daily journaling can help untangle your thoughts, reflect on feelings, and track your emotional growth over time."
+  },
+  {
+    title: "Navigating Grief with Grace",
+    body: "Grief is not linear. Read tender reflections and gentle guidance on how to feel your way through loss at your own pace."
+  },
+  {
+    title: "Small Joys That Boost Your Mood",
+    body: "From warm tea to morning sunbeams, discover the small things that can bring light into your mental wellness journey."
+  },
+  {
+    title: "How to Set Healthy Boundaries with Love",
+    body: "Explore soft but strong strategies for saying no, protecting your energy, and communicating your needs with kindness."
+  },
+  {
+    title: "The Healing Power of Talking to Someone",
+    body: "Whether it’s a therapist or a trusted friend, expressing your feelings out loud can lighten your emotional load."
+  },
+  {
+    title: "You Are Not Alone: Finding Community",
+    body: "Mental health thrives in connection. Learn ways to feel seen, heard, and supported by people who understand your journey."
+  }
+];
+
+
+// Define a list of comments for mental health posts
+const MENTAL_HEALTH_COMMENTS = [
+  "Thank you for sharing this. It really resonated with me.",
+  "You're not alone in feeling this way. Stay strong.",
+  "This was so uplifting to read. Keep going!",
+  "I really needed to hear this today. Grateful for your words.",
+  "Mental health is so important. Thanks for highlighting this.",
+  "Beautifully expressed. You've inspired me to reflect too.",
+  "Sending you love and support. We're in this together.",
+  "It’s brave of you to open up like this. You matter.",
+  "This community helps me feel seen. Thank you for being part of it.",
+  "I’m so glad I came across this post. It gave me hope."
+];
+
+
+export const MENTAL_HEALTH_USERS = [
+  { name: "Alex Johnson", email: "alex.johnson@example.com" },
+  { name: "Sam Taylor", email: "sam.taylor@example.com" },
+  { name: "Jordan Smith", email: "jordan.smith@example.com" },
+  { name: "Casey Williams", email: "casey.w@example.com" },
+  { name: "Taylor Davis", email: "t.davis@example.com" },
+  { name: "Morgan Wilson", email: "morgan.w@example.com" },
+  { name: "Jamie Brown", email: "jamie.b@example.com" },
+  { name: "Riley Miller", email: "riley.m@example.com" },
+  { name: "Drew Anderson", email: "drew.a@example.com" },
+  { name: "Cameron Thomas", email: "cam.thomas@example.com" }
+
+];
+
 // Get blog posts from JSONPlaceholder
 export const getBlogPosts = async (limit = 10) => {
   try {
     const response = await api.get(`/posts?_limit=${limit}`);
-    return response.data;
+    interface Post {
+      userId: number;
+      id: number;
+      title: string;
+      body: string;
+    }
+    const themedPosts = response.data.map((post: Post, i: number) => ({
+      ...post,
+      title: mentalHealthThemes[i % mentalHealthThemes.length].title,
+      body: mentalHealthThemes[i % mentalHealthThemes.length].body
+    }));
+    return themedPosts;
   } catch (error) {
     console.error("Error fetching blog posts:", error);
     throw error;
@@ -25,12 +111,20 @@ export const getBlogPostById = async (id: string) => {
   try {
     const post = await api.get(`/posts/${id}`);
     const user = await api.get(`/users/${post.data.userId}`);
-    return { ...post.data, author: user.data };
+
+    const i = parseInt(id, 10) % mentalHealthThemes.length;
+    return {
+      ...post.data,
+      title: mentalHealthThemes[i].title,
+      body: mentalHealthThemes[i].body,
+      author: user.data
+    };
   } catch (error) {
     console.error(`Error fetching blog post ${id}:`, error);
     throw error;
   }
 };
+
 
 // Define a User interface based on JSONPlaceholder user structure
 interface User {
@@ -74,20 +168,65 @@ export const getUsers = async (limit = 10) => {
 };
 
 // Get comments for a post
+// Get comments for a post with mental health-themed content
 export const getComments = async (postId: string) => {
   try {
     const response = await api.get(`/posts/${postId}/comments`);
-    return response.data;
+    
+    interface Comment {
+      postId: number;
+      id: number;
+      name: string;
+      email: string;
+      body: string;
+    }
+    const meaningfulComments = response.data.map((comment: Comment, index: number) => {
+      // Get a user based on comment index (cycle through our list)
+      const user = MENTAL_HEALTH_USERS[index % MENTAL_HEALTH_USERS.length];
+      
+      return {
+        ...comment,
+        name: user.name,
+        email: user.email,
+        body: MENTAL_HEALTH_COMMENTS[index % MENTAL_HEALTH_COMMENTS.length],
+        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`
+      };
+    });
+    
+    return meaningfulComments;
   } catch (error) {
     console.error(`Error fetching comments for post ${postId}:`, error);
     throw error;
   }
 };
-
 // Create a new comment
-export const createComment = async (postId: string, name: string, email: string, body: string) => {
+// Create a new mental health-themed comment
+export const createComment = async (
+  postId: string, 
+  name?: string, 
+  email?: string,
+  body?: string
+) => {
   try {
-    const response = await api.post(`/comments`, { postId, name, email, body });
+    // If name/email not provided, use a random mental health user
+    const randomUser = MENTAL_HEALTH_USERS[
+      Math.floor(Math.random() * MENTAL_HEALTH_USERS.length)
+    ];
+    
+    const finalName = name || randomUser.name;
+    const finalEmail = email || randomUser.email;
+    const finalBody = body || MENTAL_HEALTH_COMMENTS[
+      Math.floor(Math.random() * MENTAL_HEALTH_COMMENTS.length)
+    ];
+    
+    const response = await api.post(`/comments`, { 
+      postId, 
+      name: finalName,
+      email: finalEmail,
+      body: finalBody,
+      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${finalName}`
+    });
+    
     return response.data;
   } catch (error) {
     console.error("Error creating comment:", error);
@@ -296,38 +435,66 @@ export const getMoodEntries = async (userId: string) => {
 // Community posts APIs
 export const getCommunityPosts = async (limit = 10) => {
   try {
-    const response = await api.get(`/posts?_limit=${limit}`);
+    // Fetch posts
+    const postsResponse = await api.get(`/posts?_limit=${limit}`);
     
-    // Enhance the posts with additional mock data
-    // Define a Post interface based on JSONPlaceholder structure
     interface Post {
       userId: number;
       id: number;
       title: string;
       body: string;
     }
-    
-        const enhancedPosts = await Promise.all(response.data.map(async (post: Post) => {
-          // Get user data for author
-          const user = await api.get(`/users/${post.userId}`);
-          
-          // Get comments
-          const comments = await api.get(`/posts/${post.id}/comments?_limit=2`);
-          
-          // Add random likes count
-          const likes = Math.floor(Math.random() * 50);
-          
-          return {
-            ...post,
-            author: {
-              ...user.data,
-              avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.data.name}`
-            },
-            comments: comments.data,
-            likes,
-            date: new Date(Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000)).toISOString()
-          };
-        }));
+    const enhancedPosts = await Promise.all(postsResponse.data.map(async (post: Post, index: number) => {
+      // Get a meaningful author from our list
+      const authorUser = MENTAL_HEALTH_USERS[index % MENTAL_HEALTH_USERS.length];
+      
+      // Get user data for author
+      const user = await api.get(`/users/${post.userId}`);
+      
+      // Get comments
+      const commentsResponse = await api.get(`/posts/${post.id}/comments?_limit=2`);
+      
+      // Define a Comment interface for type safety
+      interface Comment {
+        postId: number;
+        id: number;
+        name: string;
+        email: string;
+        body: string;
+      }
+      // Transform comments to use meaningful names
+      const meaningfulComments = commentsResponse.data.map((comment: Comment, commentIndex: number) => {
+        const commentUser = MENTAL_HEALTH_USERS[
+          (commentIndex + index) % MENTAL_HEALTH_USERS.length
+        ];
+        
+        return {
+          ...comment,
+          name: commentUser.name,
+          email: commentUser.email,
+          body: MENTAL_HEALTH_COMMENTS[commentIndex % MENTAL_HEALTH_COMMENTS.length],
+          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${commentUser.name}`
+        };
+      });
+      
+      // Add random likes count
+      const likes = Math.floor(Math.random() * 50);
+      
+      return {
+        ...post,
+        title: mentalHealthThemes[post.id % mentalHealthThemes.length].title,
+        body: mentalHealthThemes[post.id % mentalHealthThemes.length].body,
+        author: {
+          ...user.data,
+          name: authorUser.name, // Override with meaningful name
+          email: authorUser.email,
+          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${authorUser.name}`
+        },
+        comments: meaningfulComments,
+        likes,
+        date: new Date(Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000)).toISOString()
+      };
+    }));
     
     return enhancedPosts;
   } catch (error) {
@@ -335,7 +502,6 @@ export const getCommunityPosts = async (limit = 10) => {
     throw error;
   }
 };
-
 // Get system analytics (mock data)
 export const getSystemAnalytics = async () => {
   // Simulate API delay
