@@ -20,7 +20,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const { login } = useAuth();
+  const { login, isAdmin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -40,7 +40,11 @@ const Login = () => {
     try {
       const success = await login(email, password);
       if (success) {
-        navigate(from, { replace: true });
+        if (isAdmin()) {
+          navigate('/admin', { replace: true });
+        } else {
+          navigate(from, { replace: true });
+        }
       } else {
         setError('Invalid email or password. Please try again.');
       }
