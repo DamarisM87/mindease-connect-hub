@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; 
 import {
   Home,
   User,
@@ -74,7 +74,6 @@ const Header = () => {
             </>
           ) : isAdmin() ? (
             <>
-              {/* Admin Navigation */}
               <Link to="/admin" className="px-2 py-1 hover:text-purple-600 transition-colors">Admin Dashboard</Link>
               <Link to="/blog" className="px-2 py-1 hover:text-pink-500 transition-colors">Blog</Link>
               <Link to="/community" className="px-2 py-1 hover:text-blue-500 transition-colors">Community</Link>
@@ -112,7 +111,6 @@ const Header = () => {
             </>
           ) : (
             <>
-              {/* Regular User Navigation */}
               <Link to="/dashboard" className="px-2 py-1 hover:text-purple-600 transition-colors">Dashboard</Link>
               <Link to="/mental-tracker" className="px-2 py-1 hover:text-blue-600 transition-colors">Mood Tracker</Link>
               <Link to="/appointments" className="px-2 py-1 hover:text-pink-500 transition-colors">Appointments</Link>
@@ -201,7 +199,6 @@ const Header = () => {
                 </>
               ) : isAdmin() ? (
                 <>
-                  {/* Admin Mobile Navigation */}
                   <div className="flex items-center gap-3 mb-4 p-3 bg-pink-50 rounded-xl shadow-sm">
                     <Avatar className="h-12 w-12">
                       <AvatarImage src={user.avatar} alt={user.name} />
@@ -242,7 +239,6 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  {/* Regular User Mobile Navigation */}
                   <div className="flex items-center gap-3 mb-4 p-3 bg-pink-50 rounded-xl shadow-sm">
                     <Avatar className="h-12 w-12">
                       <AvatarImage src={user.avatar} alt={user.name} />
