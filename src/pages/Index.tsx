@@ -85,9 +85,9 @@ const Index = () => {
             </Button>
           </Link>
           <Link to="/about" className="w-full sm:w-auto">
-            <Button variant="outline" className="w-full sm:w-auto py-3 px-6 rounded-full border-pink-300 text-pink-600 hover:bg-pink-50 text-sm sm:text-base">
-              Learn More
-            </Button>
+              <Button variant="outline" className="w-full sm:w- auto py-3 px-6 rounded-full border-pink-400 hover:border-pink-500 text-pink-500 shadow-md hover:shadow-pink-300 text-sm sm:text-base">
+                Learn More
+              </Button>
           </Link>
         </div>
       </section>

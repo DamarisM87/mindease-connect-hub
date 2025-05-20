@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Essential Meta Tags -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MindEase Connect Hub</title> <!-- Updated title -->
-    <meta name="description" content="Your Mental escape starts here! " /> <!-- Updated -->
-    <meta name="author" content="Your Name/Team" /> <!-- Updated -->
+    <title>MindEase – Your Mental Wellness Companion</title>
 
-    <!-- OpenGraph Meta Tags (Optional - Update with your own) -->
-    <meta property="og:title" content="MindEase Connect Hub" />
-    <meta property="og:description" content="Your Mental escape starts here!" />
+    <meta name="description" content="MindEase is a mental wellness platform for mood tracking, journaling, and therapy session management. Start your wellness journey today." />
+    <meta name="author" content="MindEase Team" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph Meta Tags (for Facebook, LinkedIn, etc.) -->
+    <meta property="og:title" content="MindEase – Your Mental Wellness Companion" />
+    <meta property="og:description" content="Track your mental health, book therapy sessions, and reflect through journaling with MindEase." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://yourdomain.com/your-image.png" /> <!-- Replace -->
+    <meta property="og:url" content="https://mindease-connect-hub.vercel.app/" />
+    <meta property="og:image" content="https://mindease-connect-hub.vercel.app/og-preview.png" /> <!-- Replace with actual image path -->
 
-    <!-- Twitter Meta Tags (Optional) -->
+    <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@yourtwitter" /> <!-- Replace -->
-    <meta name="twitter:image" content="https://yourdomain.com/your-image.png" /> <!-- Replace -->
+    <meta name="twitter:title" content="MindEase – Your Mental Wellness Companion" />
+    <meta name="twitter:description" content="Your mental health matters. Start tracking it today with MindEase." />
+    <meta name="twitter:image" content="https://mindease-connect-hub.vercel.app/og-preview.png" />
+    <meta name="twitter:site" content="@MindEaseApp" /> <!-- Replace with actual Twitter handle -->
 
-    <!-- Font Awesome CDN (Safe to keep) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
-          integrity="sha512-Z1+pHZkSOGwYBNSAcw5Bl/m1bFB4t1QZ2Nqz05OnA3eqT9z3+4F9h2KqZcP8QsL4+b5nL3PpA/2hCz4oH9y2Ew==" 
-          crossorigin="anonymous" 
+    <!-- Favicons (Important for branding) -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Font Awesome (optional but useful) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          integrity="sha512-Z1+pHZkSOGwYBNSAcw5Bl/m1bFB4t1QZ2Nqz05OnA3eqT9z3+4F9h2KqZcP8QsL4+b5nL3PpA/2hCz4oH9y2Ew=="
+          crossorigin="anonymous"
           referrerpolicy="no-referrer" />
   </head>
 
   <body>
     <div id="root"></div>
-    <!-- Scripts (Only keep what you need) -->
-    <script type="module" src="/src/main.tsx"></script> <!-- Essential for Vite/React -->
+
+    <!-- Main Script (for Vite + React) -->
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
