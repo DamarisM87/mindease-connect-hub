@@ -63,7 +63,6 @@ MindEase is a responsive mental health tracking platform where users can manage 
 | API Integration      | Axios + Fake APIs (JSONPlaceholder, MockAPI) |
 | Authentication       | useAuth     |
 | Deployment           | Vercel                       |
-| Charts               | Recharts or Chart.js         |
 | Animations           | Framer Motion                |
 
 ---
